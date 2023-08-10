@@ -17,7 +17,7 @@ public interface WishRepository extends JpaRepository<Wish, UUID> {
     @Query(value="select w from Wish w where w.category = :category")
     List<Wish> findByCategory(Category category);
 
-    Integer create(Wish wish);
+    //Integer create(Wish wish);
 
 //    Integer create(String name,
 //                   String image,

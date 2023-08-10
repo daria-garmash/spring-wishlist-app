@@ -6,23 +6,29 @@ import com.wishlist.wishlistapp.model.AppUser;
 import com.wishlist.wishlistapp.repository.UserRepository;
 import com.wishlist.wishlistapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Service
+@Transactional
 public class UserServiceInitial implements UserService {
-    @Autowired
-    UserRepository repository;
+//    @Autowired
+//    UserRepository repository;
 
-    UserDao dao;
+    @Autowired
+   UserDao dao;
 
     public UserServiceInitial() {
-        this.dao = new PostgresUserDao(repository);
+
+       // this.dao = new PostgresUserDao(repository);
     }
 
     @Override
-    public AppUser getUserById(AppUser user) {
-        return dao.getUser(user.getId());
+    public AppUser getUserById(UUID user) {
+        return dao.getUser(user);
     }
 
     @Override

@@ -4,19 +4,18 @@ import com.wishlist.wishlistapp.dao.WishListDao;
 import com.wishlist.wishlistapp.model.AppUser;
 import com.wishlist.wishlistapp.model.WishList;
 import com.wishlist.wishlistapp.repository.WishListRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
 
-@Repository
+@Component
 public class PostgresWishListDao implements WishListDao {
 
-    private final WishListRepository repo;
+    @Autowired
+    private WishListRepository repo;
 
-    public PostgresWishListDao(WishListRepository repo) {
-        this.repo = repo;
-    }
 
     @Override
     public WishList insertList(WishList list) {
@@ -29,12 +28,12 @@ public class PostgresWishListDao implements WishListDao {
     }
 
     @Override
-    public void deleteListById(AppUser user, UUID listId) {
-        repo.deleteById(listId, user);
+    public void deleteListById(UUID listId) {
+        repo.deleteById(listId);
     }
 
     @Override
     public WishList getWishListById(AppUser user, UUID listId) {
-        return this.repo.findById(listId).get();
+        return this.repo.findById(listId).orElse(null);
     }
 }
