@@ -1,7 +1,10 @@
 package com.wishlist.wishlistapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
@@ -12,10 +15,11 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "wish")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Wish {
 
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column
@@ -38,9 +42,24 @@ public class Wish {
     private Category category;
 
     @OneToMany(mappedBy = "wish")
+    @JsonIgnore
     private Set<WishInList> wishInLists;
 
     public Wish(UUID id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", link='" + link + '\'' +
+                ", addedAt=" + addedAt +
+                ", category=" + category +
+                ", wishInLists=" + wishInLists +
+                '}';
     }
 }
